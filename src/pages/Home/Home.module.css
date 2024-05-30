@@ -1,17 +1,22 @@
 .wrapper_bg {
   height: 736px;
+  display: flex;
+  justify-content: center;
 }
 
 .bg_red {
   background-color: var(--primary-color-red);
   height: 100%;
-  width: 50%;
+  width: 677px;
+  border-bottom-left-radius: 30px;
+  border-top-left-radius: 30px;
 }
 
 .bg_img {
-  background-image: url(../../assets/img/main.jpeg);
-  width: 100%;
+  background: linear-gradient(rgba(18, 20, 23, 0.6), rgba(18, 20, 23, 0.6)),
+    url(../../assets/img/main.jpeg), no-repeat, center;
+  width: 699px;
   height: 100%;
-  background-repeat: no-repeat;
-  background-size: auto;
+  border-bottom-right-radius: 30px;
+  border-top-right-radius: 30px;
 }

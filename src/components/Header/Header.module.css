@@ -1,0 +1,63 @@
+.header {
+  position: absolute;
+  width: 1376px;
+  padding: 20px 96px;
+  border-bottom: 1px solid rgba(251, 251, 251, 0.4);
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nanny_link {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.16;
+  letter-spacing: -0.02em;
+  color: var(--primary-color-white);
+}
+
+.nav_menu {
+  display: flex;
+  align-items: center;
+}
+
+.li_home {
+  margin-right: 40px;
+}
+
+.link_item {
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--primary-color-white);
+}
+
+.login_li {
+  margin-right: 8px;
+  margin-left: 92px;
+}
+
+.login_btn {
+  border: 1px solid rgba(251, 251, 251, 0.4);
+  border-radius: 30px;
+  padding: 14px 0;
+  width: 124px;
+  color: var(--primary-color-white);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+.register_btn {
+  border-radius: 30px;
+  padding: 14px 0;
+  background-color: var(--primary-color-red);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--primary-color-white);
+  width: 168px;
+}

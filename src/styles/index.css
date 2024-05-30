@@ -1,5 +1,6 @@
 :root {
   --primary-color-red: #f03f3b;
+  --primary-color-white: #fbfbfb;
 }
 
 html {
@@ -16,7 +17,7 @@ html {
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Inter', serif;
+  font-family: 'Helvetica Neue', serif;
   font-size: 16px;
   line-height: 1.5;
 }
