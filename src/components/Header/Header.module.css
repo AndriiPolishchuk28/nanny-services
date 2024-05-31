@@ -3,6 +3,7 @@
   width: 1376px;
   padding: 20px 96px;
   border-bottom: 1px solid rgba(251, 251, 251, 0.4);
+  z-index: 1;
 }
 
 .navbar {
@@ -60,4 +61,10 @@
   letter-spacing: -0.01em;
   color: var(--primary-color-white);
   width: 168px;
+}
+
+.register_btn:hover {
+  color: var(--primary-color-red);
+  background-color: var(--primary-color-white);
+  transition: background-color 250ms ease-in-out;
 }

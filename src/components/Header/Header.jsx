@@ -1,9 +1,21 @@
 import { NavLink } from 'react-router-dom';
 import css from './Header.module.css';
+import { useState } from 'react';
+import FormModal from '../../components/FormModal/FormModal';
 
 const Header = () => {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const openModal = () => {
+    setModalIsOpen(true);
+    document.body.style.overflow = 'hidden';
+  };
+  const closeModal = () => {
+    setModalIsOpen(false);
+    document.body.style.overflow = 'auto';
+  };
   return (
     <header className={css.header}>
+      <FormModal isOpen={modalIsOpen} isClose={closeModal} />
       <nav className={css.navbar}>
         <NavLink className={css.nanny_link} to="/">
           Nanny.Services
@@ -20,7 +32,11 @@ const Header = () => {
             </NavLink>
           </li>
           <li className={css.login_li}>
-            <button className={css.login_btn} aria-controls="loginModal">
+            <button
+              onClick={openModal}
+              className={css.login_btn}
+              aria-controls="loginModal"
+            >
               Login
             </button>
           </li>
