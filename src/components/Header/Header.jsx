@@ -5,7 +5,10 @@ import FormModal from '../../components/FormModal/FormModal';
 
 const Header = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const openModal = () => {
+  const [typeBtn, setTypeBtn] = useState(null);
+
+  const openModal = (event) => {
+    setTypeBtn(event.target.innerText);
     setModalIsOpen(true);
     document.body.style.overflow = 'hidden';
   };
@@ -15,7 +18,7 @@ const Header = () => {
   };
   return (
     <header className={css.header}>
-      <FormModal isOpen={modalIsOpen} isClose={closeModal} />
+      <FormModal type={typeBtn} isOpen={modalIsOpen} isClose={closeModal} />
       <nav className={css.navbar}>
         <NavLink className={css.nanny_link} to="/">
           Nanny.Services
@@ -42,6 +45,7 @@ const Header = () => {
           </li>
           <li>
             <button
+              onClick={openModal}
               className={css.register_btn}
               aria-controls="registrationModal"
             >

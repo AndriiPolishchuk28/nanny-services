@@ -1,5 +1,11 @@
+import NanniesItem from '../../components/NanniesList/NanniesItem/NanniesItem';
+
 const Nannies = () => {
-  return <div>nannies</div>;
+  return (
+    <div>
+      <NanniesItem />
+    </div>
+  );
 };
 
 export default Nannies;
