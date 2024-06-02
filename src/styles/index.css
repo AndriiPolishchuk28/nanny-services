@@ -2,6 +2,9 @@
   --primary-color-red: #f03f3b;
   --primary-color-white: #fbfbfb;
   --primary-color-black: #11101c;
+  --primary-color-yellow: #ffc531;
+  --primary-color-grey: #8a8a89;
+  --primary-color-grey-bg: #f3f3f3;
 }
 
 html {

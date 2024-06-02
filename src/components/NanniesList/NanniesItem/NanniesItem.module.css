@@ -1,0 +1,126 @@
+.item_wrapper {
+  border-radius: 24px;
+  padding: 24px;
+  border: 1px solid red;
+  display: flex;
+  gap: 24px;
+}
+
+.img_wrapper {
+  width: 120px;
+  height: 120px;
+  border: 2px solid rgba(240, 63, 59, 0.2);
+  border-radius: 30px;
+  flex-shrink: 0;
+}
+
+.info_wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.nanny {
+  font-weight: 500;
+  color: var(--primary-color-grey);
+  margin: 0;
+}
+
+.details_wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.details_info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.details_info:nth-child(-n + 2)::after {
+  content: '';
+  display: block;
+  width: 1px;
+  height: 16px;
+  background-color: rgba(17, 16, 28, 0.2);
+  margin: 0 16px;
+}
+
+.svg_map {
+  fill: transparent;
+  width: 16px;
+  height: 16px;
+  stroke: var(--primary-color-black);
+}
+
+.svg_heart {
+  fill: transparent;
+  width: 26px;
+  height: 26px;
+  stroke: var(--primary-color-black);
+  margin-left: 48px;
+}
+
+.text_details_info {
+  font-weight: 500;
+  color: var(--primary-color-black);
+}
+
+.svg_star {
+  fill: var(--primary-color-yellow);
+}
+
+.text_details_info span {
+  color: #38cd3e;
+}
+
+.name_and_details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.name_teacher {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1;
+  color: var(--primary-color-black);
+  margin-top: 8px;
+}
+
+.features_wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.features_item {
+  display: flex;
+  border-radius: 24px;
+  padding: 8px 16px;
+  background-color: var(--primary-color-grey-bg);
+}
+
+.features_name {
+  font-weight: 500;
+  color: var(--primary-color-grey);
+}
+
+.features_describtion {
+  font-weight: 500;
+  color: var(--primary-color-black);
+}
+
+.about_teacher {
+  line-height: 1.25;
+  color: rgba(17, 16, 28, 0.5);
+  margin-top: 24px;
+}
+
+.btn_more {
+  font-family: inherit;
+  font-weight: 500;
+  text-decoration: underline;
+  color: var(--primary-color-black);
+}
