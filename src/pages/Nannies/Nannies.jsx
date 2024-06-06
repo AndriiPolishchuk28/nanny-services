@@ -1,9 +1,9 @@
-import NanniesItem from '../../components/NanniesList/NanniesItem/NanniesItem';
+import NanniestList from '../../components/NanniesList/NanniestList';
 
 const Nannies = () => {
   return (
     <div>
-      <NanniesItem />
+      <NanniestList />
     </div>
   );
 };

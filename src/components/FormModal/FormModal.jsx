@@ -3,10 +3,12 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import css from './FormModal.module.css';
 import { icons } from '../../assets';
+import { useDispatch } from 'react-redux';
 import { useState } from 'react';
+import { signUp, signIn } from '../../redux/nannies/operations';
 
 const validationSchema = Yup.object().shape({
-  name: Yup.string().required('Name is required'),
+  name: Yup.string(),
   email: Yup.string().email('Invalid email').required('Email is required'),
   password: Yup.string()
     .min(8, 'Password must be at least 8 characters')
@@ -20,9 +22,11 @@ const initialValues = {
 };
 
 const FormModal = ({ type, isOpen, isClose }) => {
+  const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
-  const handleSubmit = (values, { setSubmitting }) => {
+  const handleSubmit = async (values, { setSubmitting }) => {
     console.log(values);
+    dispatch(signIn(values));
     setSubmitting(false);
   };
 
