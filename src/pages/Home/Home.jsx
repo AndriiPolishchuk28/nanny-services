@@ -3,8 +3,15 @@ import Header from '../../components/Header/Header';
 import css from './Home.module.css';
 import { NavLink } from 'react-router-dom';
 import { icons } from '../../assets';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { currentUser } from '../../redux/nannies/operations';
 
 const Home = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(currentUser());
+  }, [dispatch]);
   return (
     <Container>
       <Header />

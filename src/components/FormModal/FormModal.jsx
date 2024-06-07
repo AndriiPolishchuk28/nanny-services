@@ -26,7 +26,11 @@ const FormModal = ({ type, isOpen, isClose }) => {
   const [visible, setVisible] = useState(false);
   const handleSubmit = async (values, { setSubmitting }) => {
     console.log(values);
-    dispatch(signIn(values));
+    if (type === 'Login') {
+      dispatch(signIn(values));
+    } else {
+      dispatch(signUp(values));
+    }
     setSubmitting(false);
   };
 

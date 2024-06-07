@@ -3,9 +3,11 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
   signInWithEmailAndPassword,
+  onAuthStateChanged,
 } from 'firebase/auth';
 import { auth, database } from '../../components/api/firebase-config';
 import { ref, get, set } from 'firebase/database';
+import { setUser } from './nannySlice';
 
 export const signUp = createAsyncThunk(
   'nanny/register',
@@ -21,11 +23,10 @@ export const signUp = createAsyncThunk(
       await updateProfile(user, {
         displayName: data.name,
       });
-      console.log(user.displayName);
-      await set(ref(database, 'users/' + user.uid), {
-        name: data.name,
-        email: data.email,
-      });
+      // await set(ref(database, 'users/' + user.uid), {
+      //   name: data.name,
+      //   email: data.email,
+      // });
       return {
         userName: user.displayName,
       };
@@ -40,13 +41,50 @@ export const signIn = createAsyncThunk(
   async (data, thunkApi) => {
     try {
       const userCredential = await signInWithEmailAndPassword(
+        auth,
         data.email,
         data.password
       );
       const user = userCredential.user;
-      console.log('succes');
+      return {
+        user,
+      };
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.message);
+    }
+  }
+);
 
-      return user;
+export const currentUser = createAsyncThunk(
+  'nanny/currentUser',
+  async (_, thunkApi) => {
+    try {
+      const user = await new Promise((resolve, reject) => {
+        const unsubscribe = onAuthStateChanged(
+          auth,
+          (user) => {
+            unsubscribe();
+            if (user) {
+              console.log(user);
+              resolve(user);
+            } else {
+              resolve(null);
+            }
+          },
+          reject
+        );
+      });
+
+      if (user) {
+        return {
+          name: user.displayName,
+          email: user.email,
+          uid: user.uid,
+        };
+      } else {
+        console.log('Please login');
+        return null;
+      }
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
     }
