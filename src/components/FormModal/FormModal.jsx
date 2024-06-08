@@ -5,7 +5,7 @@ import css from './FormModal.module.css';
 import { icons } from '../../assets';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
-import { signUp, signIn } from '../../redux/nannies/operations';
+import { signUp, signIn } from '../../redux/auth/operations';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string(),
@@ -25,12 +25,12 @@ const FormModal = ({ type, isOpen, isClose }) => {
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
   const handleSubmit = async (values, { setSubmitting }) => {
-    console.log(values);
     if (type === 'Login') {
       dispatch(signIn(values));
     } else {
       dispatch(signUp(values));
     }
+    isClose();
     setSubmitting(false);
   };
 

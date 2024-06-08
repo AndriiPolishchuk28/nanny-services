@@ -68,3 +68,14 @@
   background-color: var(--primary-color-white);
   transition: background-color 250ms ease-in-out;
 }
+
+.logout_btn {
+  border-radius: 30px;
+  padding: 14px 0;
+  background-color: var(--primary-color-red);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--primary-color-white);
+  width: 134px;
+}
