@@ -2,6 +2,8 @@ import { Route, Routes } from 'react-router-dom';
 import SharedLayout from './components/SharedLayout/SharedLayout';
 import Home from './pages/Home/Home';
 import Nannies from './pages/Nannies/Nannies';
+import PrivateLayout from './components/PrivateLayout/PrivateLayout';
+import Favorites from './pages/Favorites/Favorites';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsRefreshing } from './redux/auth/selectors';
 import { useEffect } from 'react';
@@ -15,17 +17,20 @@ function App() {
   }, [dispatch]);
 
   const isFetchingCurrentUser = useSelector(selectIsRefreshing);
-  console.log(isFetchingCurrentUser);
   return (
-    <Routes>
-      {!isFetchingCurrentUser && (
+    !isFetchingCurrentUser && (
+      <Routes>
         <Route path="/" element={<SharedLayout />}>
           <Route index element={<Home />} />
-          <Route path="/nannies" element={<Nannies />} />
-          {/* <Route path="*" element={<ErrorPage />} /> */}
         </Route>
-      )}
-    </Routes>
+        <Route element={<PrivateLayout />}>
+          <Route path="/nannies" element={<Nannies />} />
+          <Route path="/favorites" element={<Favorites />} />
+        </Route>
+
+        {/* <Route path="*" element={<ErrorPage />} /> */}
+      </Routes>
+    )
   );
 }
 export default App;

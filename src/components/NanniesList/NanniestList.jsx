@@ -8,7 +8,6 @@ import { selectNannies } from '../../redux/nannies/selectors';
 const NanniestList = () => {
   const dispatch = useDispatch();
   const nannies = useSelector(selectNannies);
-  console.log(nannies);
 
   useEffect(() => {
     dispatch(getListOfNannies());
