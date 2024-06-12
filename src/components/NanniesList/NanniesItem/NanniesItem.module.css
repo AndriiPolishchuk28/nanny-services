@@ -136,3 +136,21 @@
   text-decoration: underline;
   color: var(--primary-color-black);
 }
+
+.review_list {
+  margin-top: 48px;
+}
+
+.btn_appointment {
+  margin-top: 23px;
+  border-radius: 30px;
+  padding: 14px 28px;
+  width: 215px;
+  height: 48px;
+  background-color: var(--primary-color-red);
+  font-family: inherit;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--primary-color-white);
+}

@@ -3,6 +3,7 @@ import { icons } from '../../../assets';
 import { useState } from 'react';
 import { calculateAge } from '../../../helpers/index';
 import { nanoid } from 'nanoid';
+import NanniesReviews from './NanniesReviews/NanniesReviews';
 
 const NanniesItem = ({ data }) => {
   const {
@@ -84,11 +85,26 @@ const NanniesItem = ({ data }) => {
           </div>
         </div>
         <p className={css.about_teacher}>{about}</p>
-        <button onClick={handleReadMore} className={css.btn_more}>
-          Read more
-        </button>
-        {readMore &&
-          reviews.map((item) => <p key={nanoid()}>{item.comment}</p>)}
+        {!readMore && (
+          <button onClick={handleReadMore} className={css.btn_more}>
+            Read more
+          </button>
+        )}
+        {readMore && (
+          <ul className={css.review_list}>
+            {reviews.map(({ comment, rating, reviewer }) => (
+              <NanniesReviews
+                key={nanoid()}
+                comment={comment}
+                rating={rating}
+                reviewer={reviewer}
+              />
+            ))}
+            <button className={css.btn_appointment} type="button">
+              Make an appointment
+            </button>
+          </ul>
+        )}
       </div>
     </li>
   );

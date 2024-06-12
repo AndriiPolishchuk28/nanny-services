@@ -1,0 +1,12 @@
+.loadmore_btn {
+  border-radius: 30px;
+  padding: 14px 40px;
+  width: 159px;
+  height: 48px;
+  background-color: var(--primary-color-red);
+  font-family: inherit;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--primary-color-white);
+}
