@@ -39,6 +39,7 @@ export const getListOfNannies = createAsyncThunk(
         orderByKey(),
         limitToFirst(pageSize)
       );
+
       if (lastKey) {
         nanniesQuery = query(
           ref(database, 'nannies'),

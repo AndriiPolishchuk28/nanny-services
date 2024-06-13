@@ -9,6 +9,7 @@ import {
   selectPage,
 } from '../../redux/nannies/selectors';
 import css from './NanniesList.module.css';
+import { resetNannies } from '../../redux/nannies/nannySlice';
 
 const NanniestList = () => {
   const dispatch = useDispatch();
@@ -20,6 +21,12 @@ const NanniestList = () => {
   useEffect(() => {
     dispatch(getListOfNannies({ lastKey: null, pageSize: pageSize }));
   }, [dispatch, pageSize]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetNannies());
+    };
+  }, [dispatch]);
 
   const loadMoreNannies = () => {
     dispatch(getListOfNannies({ lastKey, pageSize }));

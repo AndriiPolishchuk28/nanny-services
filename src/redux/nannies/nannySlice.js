@@ -37,7 +37,11 @@ const initialState = {
 const nannySlice = createSlice({
   name: 'nanny',
   initialState,
-  reducers: {},
+  reducers: {
+    resetNannies(state) {
+      (state.nannies = []), (state.lastKey = null);
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getListOfNannies.pending, (state) => {
@@ -46,8 +50,14 @@ const nannySlice = createSlice({
       .addCase(getListOfNannies.fulfilled, (state, { payload }) => {
         state.isLoading = false;
 
-        state.nannies = [...state.nannies, ...payload];
-        state.lastKey = payload[payload.length - 1].key;
+        if (payload.length > 0) {
+          const uniqueKeys = state.nannies.map((item) => item.key);
+          const nanny = payload.filter(
+            (item) => !uniqueKeys.includes(item.key)
+          );
+          state.nannies = [...state.nannies, ...nanny];
+          state.lastKey = payload[payload.length - 1].key;
+        }
       })
       .addCase(getListOfNannies.rejected, (state, { payload }) => {
         state.isLoading = false;
@@ -56,4 +66,5 @@ const nannySlice = createSlice({
   },
 });
 
+export const { resetNannies } = nannySlice.actions;
 export const nannyReducer = nannySlice.reducer;
