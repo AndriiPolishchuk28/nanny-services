@@ -12,6 +12,9 @@
   border-top-left-radius: 30px;
   padding-top: 251px;
   padding-left: 96px;
+  @media screen and (max-width: 1239px) {
+    width: 100%;
+  }
 }
 
 .bg_img {
@@ -22,6 +25,11 @@
   border-bottom-right-radius: 30px;
   border-top-right-radius: 30px;
   position: relative;
+  @media screen and (max-width: 1239px) {
+    width: 100%;
+    background-size: cover;
+    /* position: static; */
+  }
 }
 
 .title {

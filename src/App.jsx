@@ -18,19 +18,17 @@ function App() {
 
   const isFetchingCurrentUser = useSelector(selectIsRefreshing);
   return (
-    !isFetchingCurrentUser && (
-      <Routes>
-        <Route path="/" element={<SharedLayout />}>
-          <Route index element={<Home />} />
-        </Route>
-        <Route element={<PrivateLayout />}>
-          <Route path="/nannies" element={<Nannies />} />
-          <Route path="/favorites" element={<Favorites />} />
-        </Route>
+    <Routes>
+      <Route path="/" element={<SharedLayout />}>
+        {!isFetchingCurrentUser && <Route index element={<Home />} />}
+      </Route>
+      <Route element={<PrivateLayout />}>
+        <Route path="/nannies" element={<Nannies />} />
+        <Route path="/favorites" element={<Favorites />} />
+      </Route>
 
-        {/* <Route path="*" element={<ErrorPage />} /> */}
-      </Routes>
-    )
+      {/* <Route path="*" element={<ErrorPage />} /> */}
+    </Routes>
   );
 }
 export default App;

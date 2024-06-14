@@ -1,9 +1,20 @@
+.wrap_header {
+  position: relative;
+}
+
 .header {
   position: absolute;
-  width: 1376px;
+  max-width: 1376px;
+  width: 100%;
   padding: 20px 96px;
   border-bottom: 1px solid rgba(251, 251, 251, 0.4);
   z-index: 1;
+  @media screen and (max-width: 1440px) {
+    padding: 20px 48px;
+  }
+  @media screen and (max-width: 1239px) {
+    background-color: var(--primary-color-red);
+  }
 }
 
 .navbar {
@@ -23,6 +34,9 @@
 .nav_menu {
   display: flex;
   align-items: center;
+  @media screen and (max-width: 1239px) {
+    display: none;
+  }
 }
 
 .li_home {
@@ -78,4 +92,12 @@
   letter-spacing: -0.01em;
   color: var(--primary-color-white);
   width: 134px;
+}
+
+.svg_burger {
+  display: none;
+  @media screen and (max-width: 1239px) {
+    display: block;
+    stroke: var(--primary-color-white);
+  }
 }

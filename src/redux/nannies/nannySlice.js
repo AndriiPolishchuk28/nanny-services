@@ -51,11 +51,11 @@ const nannySlice = createSlice({
         state.isLoading = false;
 
         if (payload.length > 0) {
-          const uniqueKeys = state.nannies.map((item) => item.key);
-          const nanny = payload.filter(
-            (item) => !uniqueKeys.includes(item.key)
-          );
-          state.nannies = [...state.nannies, ...nanny];
+          // const uniqueKeys = state.nannies.map((item) => item.key);
+          // const nanny = payload.filter(
+          //   (item) => !uniqueKeys.includes(item.key)
+          // );
+          state.nannies = [...state.nannies, ...payload];
           state.lastKey = payload[payload.length - 1].key;
         }
       })

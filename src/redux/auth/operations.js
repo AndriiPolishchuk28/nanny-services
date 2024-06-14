@@ -45,7 +45,6 @@ export const signIn = createAsyncThunk(
         data.password
       );
       const user = userCredential.user;
-      //   console.log(user);
       return {
         name: user.displayName,
         email: user.email,
