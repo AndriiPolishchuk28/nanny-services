@@ -14,6 +14,9 @@
   }
   @media screen and (max-width: 1239px) {
     background-color: var(--primary-color-red);
+    position: static;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
   }
 }
 

@@ -21,23 +21,24 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) =>
     builder
-      .addCase(signUp.fulfilled, (state, { payload }) => {
-        (state.isLoading = false), console.log(payload);
+      .addCase(signUp.fulfilled, (state) => {
+        state.isLoading = false;
       })
       .addCase(signIn.fulfilled, (state, { payload }) => {
-        (state.isLoading = false), console.log(payload);
+        state.isLoading = false;
         state.currentUser = payload;
       })
       .addCase(logOut.fulfilled, (state) => {
-        (state.isLoading = false),
-          (state.currentUser = {
-            id: '',
-            name: '',
-          });
+        state.isLoading = false;
+        state.currentUser = {
+          id: '',
+          name: '',
+        };
       })
       .addCase(currentUser.fulfilled, (state, { payload }) => {
-        ((state.isLoading = false), (state.isRefreshing = false)),
-          (state.currentUser = payload);
+        state.isLoading = false;
+        state.isRefreshing = false;
+        state.currentUser = payload;
       })
       .addCase(currentUser.pending, (state) => {
         state.isRefreshing = true;

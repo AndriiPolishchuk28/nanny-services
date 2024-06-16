@@ -28,7 +28,12 @@
   @media screen and (max-width: 1239px) {
     width: 100%;
     background-size: cover;
-    /* position: static; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 80px;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 30px;
   }
 }
 

@@ -1,7 +1,6 @@
 import NanniesItem from './NanniesItem/NanniesItem';
-import { nanoid } from 'nanoid';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getListOfNannies } from '../../redux/nannies/operations';
 import {
   selectLastKey,
@@ -16,11 +15,11 @@ const NanniestList = () => {
   const nannies = useSelector(selectNannies);
   const lastKey = useSelector(selectLastKey);
   const pageSize = useSelector(selectPage);
-  console.log(pageSize);
+  const [selectedOption, setSelectedOption] = useState('');
 
   useEffect(() => {
-    dispatch(getListOfNannies({ lastKey: null, pageSize: pageSize }));
-  }, [dispatch, pageSize]);
+    dispatch(getListOfNannies({ lastKey: null, pageSize, selectedOption }));
+  }, [dispatch, pageSize, selectedOption]);
 
   useEffect(() => {
     return () => {
@@ -32,12 +31,23 @@ const NanniestList = () => {
     dispatch(getListOfNannies({ lastKey, pageSize }));
   };
 
+  const handleChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+  console.log(selectedOption);
+
   return (
     <>
+      <select id="select" value={selectedOption} onChange={handleChange}>
+        <option value="">--Please choose an option--</option>
+        <option value="name">A to Z</option>
+        <option value="des">Z to A</option>
+        <option value="cheap">less that 10$</option>
+      </select>
       <ul>
         {Array.isArray(nannies) &&
           nannies.map((nanny) => {
-            return <NanniesItem key={nanoid()} data={nanny} />;
+            return <NanniesItem key={nanny.name} data={nanny} />;
           })}
       </ul>
       <button

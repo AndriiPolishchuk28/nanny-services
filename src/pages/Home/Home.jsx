@@ -27,8 +27,23 @@ const Home = () => {
             </NavLink>
           </div>
         )}
-
         <div className={css.bg_img}>
+          {width <= 1239 && (
+            <div>
+              <h1 className={css.title}>Make Life Easier for the Family:</h1>
+              <p className={css.subtitle}>
+                Find Babysitters Online for All Occasions
+              </p>
+
+              <NavLink to="/nannies" className={css.get_started}>
+                Get started
+                <svg className={css.arrow}>
+                  <use href={`${icons}#icon-arrow`}></use>
+                </svg>
+              </NavLink>
+            </div>
+          )}
+
           <div className={css.wrapper_box}>
             <div className={css.svg_wrapper}>
               <svg className={css.check}>
