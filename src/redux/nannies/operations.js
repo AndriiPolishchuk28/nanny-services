@@ -11,7 +11,7 @@ import {
 
 export const getListOfNannies = createAsyncThunk(
   'nanny/list',
-  async ({ lastKey, pageSize, filter }, thunkApi) => {
+  async ({ lastKey, pageSize }, thunkApi) => {
     try {
       let nanniesQuery = query(
         ref(database, 'nannies'),

@@ -8,6 +8,7 @@ const initialState = {
   error: null,
   isLoading: false,
   pageSize: 3,
+  filter: '',
 };
 
 const nannySlice = createSlice({
@@ -17,6 +18,9 @@ const nannySlice = createSlice({
     resetNannies(state) {
       state.nannies = [];
       state.lastKey = null;
+    },
+    setFilter(state, { payload }) {
+      state.filter = payload;
     },
   },
   extraReducers: (builder) => {
@@ -38,5 +42,5 @@ const nannySlice = createSlice({
   },
 });
 
-export const { resetNannies } = nannySlice.actions;
+export const { resetNannies, setFilter } = nannySlice.actions;
 export const nannyReducer = nannySlice.reducer;
