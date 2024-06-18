@@ -9,8 +9,9 @@ import {
   selectPage,
 } from '../../redux/nannies/selectors';
 import css from './NanniesList.module.css';
-import { resetNannies, setFilter } from '../../redux/nannies/nannySlice';
+import { resetNannies } from '../../redux/nannies/nannySlice';
 import sort from '../../helpers/sortFunctions';
+import SelectComponents from '../SelectComponents/SelectComponents';
 
 const NanniestList = () => {
   const dispatch = useDispatch();
@@ -18,7 +19,6 @@ const NanniestList = () => {
   const lastKey = useSelector(selectLastKey);
   const pageSize = useSelector(selectPage);
   const filter = useSelector(selectFilter);
-  const [selectedOption, setSelectedOption] = useState('');
   const [ab, setAb] = useState([]);
 
   useEffect(() => {
@@ -40,21 +40,10 @@ const NanniestList = () => {
     dispatch(getListOfNannies({ lastKey, pageSize }));
   };
 
-  const handleChange = (event) => {
-    setSelectedOption(event.target.value);
-    dispatch(setFilter(event.target.value));
-  };
-  console.log(selectedOption);
-
   return (
     <>
-      <select id="select" value={selectedOption} onChange={handleChange}>
-        <option value="">--Please choose an option--</option>
-        <option value="ascName">A to Z</option>
-        <option value="descName">Z to A</option>
-        <option value="cheap">less that 10$</option>
-      </select>
-      <ul>
+      <SelectComponents />
+      <ul className={css.list}>
         {ab.length &&
           ab.map((nanny) => {
             return <NanniesItem key={nanny.name} data={nanny} />;

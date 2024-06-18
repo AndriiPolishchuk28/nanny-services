@@ -1,0 +1,11 @@
+.select_wrapper {
+  margin-bottom: 32px;
+}
+
+.filters_title {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.28;
+  color: var(--primary-color-grey);
+  margin-bottom: 8px;
+}
