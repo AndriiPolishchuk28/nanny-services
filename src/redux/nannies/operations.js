@@ -70,7 +70,7 @@ export const addFavoriteNanny = createAsyncThunk(
           data.favorites = [nanny];
         }
         await set(ref(database, `users/${id}`), data);
-        return data;
+        return data.favorites;
       }
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);

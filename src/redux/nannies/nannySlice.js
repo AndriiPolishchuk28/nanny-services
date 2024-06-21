@@ -41,7 +41,7 @@ const nannySlice = createSlice({
       })
       .addCase(addFavoriteNanny.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        console.log(payload);
+        state.favorites = payload;
       });
   },
 });

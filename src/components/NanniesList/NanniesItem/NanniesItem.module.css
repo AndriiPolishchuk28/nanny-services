@@ -69,6 +69,11 @@
   margin-left: 48px;
 }
 
+.favorite {
+  fill: var(--primary-color-red);
+  stroke: var(--primary-color-red);
+}
+
 .text_details_info {
   font-weight: 500;
   color: var(--primary-color-black);

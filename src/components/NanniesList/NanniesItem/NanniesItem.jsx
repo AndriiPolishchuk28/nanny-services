@@ -1,11 +1,12 @@
 import css from './NanniesItem.module.css';
 import { icons } from '../../../assets';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { calculateAge } from '../../../helpers/index';
 import { nanoid } from 'nanoid';
 import NanniesReviews from './NanniesReviews/NanniesReviews';
 import { useSelector } from 'react-redux';
-import { selectUser } from '../../../redux/auth/selectors';
+import { selectIsLoggedIn, selectUser } from '../../../redux/auth/selectors';
+import { selectFavorites } from '../../../redux/nannies/selectors';
 
 const NanniesItem = ({ data, handleFavorite }) => {
   const {
@@ -21,9 +22,21 @@ const NanniesItem = ({ data, handleFavorite }) => {
     characters,
     education,
     reviews,
+    key,
   } = data;
   const [readMore, setReadMore] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
   const user = useSelector(selectUser);
+  const favoritesNannies = useSelector(selectFavorites);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+
+  useEffect(() => {
+    if (favoritesNannies.find((car) => car.key === key) && isLoggedIn) {
+      setIsFavorite(true);
+    } else {
+      setIsFavorite(false);
+    }
+  }, [favoritesNannies, key, isLoggedIn]);
 
   const handleReadMore = () => {
     setReadMore(true);
@@ -59,7 +72,7 @@ const NanniesItem = ({ data, handleFavorite }) => {
                 onClick={() => handleFavorite(user.uid, data)}
                 width={26}
                 height={26}
-                className={css.svg_heart}
+                className={`${css.svg_heart} ${isFavorite ? css.favorite : ''}`}
               >
                 <use href={`${icons}#icon-heart`}></use>
               </svg>

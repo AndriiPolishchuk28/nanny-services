@@ -4,6 +4,7 @@ import { signUp, signIn, currentUser, logOut } from './operations';
 const initialState = {
   error: null,
   isLoading: false,
+  isLoggedIn: false,
   isRefreshing: false,
   currentUser: {
     id: '',
@@ -27,9 +28,11 @@ const authSlice = createSlice({
       .addCase(signIn.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.currentUser = payload;
+        state.isLoggedIn = true;
       })
       .addCase(logOut.fulfilled, (state) => {
         state.isLoading = false;
+        state.isLoggedIn = false;
         state.currentUser = {
           id: '',
           name: '',
@@ -38,6 +41,7 @@ const authSlice = createSlice({
       .addCase(currentUser.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.isRefreshing = false;
+        state.isLoggedIn = payload ? true : false;
         state.currentUser = payload;
       })
       .addCase(currentUser.pending, (state) => {
