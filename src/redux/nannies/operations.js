@@ -7,6 +7,7 @@ import {
   orderByKey,
   startAfter,
   limitToFirst,
+  set,
 } from 'firebase/database';
 
 export const getListOfNannies = createAsyncThunk(
@@ -39,6 +40,37 @@ export const getListOfNannies = createAsyncThunk(
       } else {
         console.log('No data available');
         return [];
+      }
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.message);
+    }
+  },
+);
+
+export const addFavoriteNanny = createAsyncThunk(
+  'add/favorite',
+  async ({ id, nanny }, thunkApi) => {
+    try {
+      const query = ref(database, 'users');
+      const snapshot = await get(query);
+
+      if (snapshot.exists()) {
+        const data = snapshot.val()[id];
+        if (data.hasOwnProperty('favorites')) {
+          const exists = data.favorites.some((item) => item.key === nanny.key);
+
+          if (exists) {
+            data.favorites = data.favorites.filter(
+              (item) => item.key !== nanny.key,
+            );
+          } else {
+            data.favorites = [...data.favorites, nanny];
+          }
+        } else {
+          data.favorites = [nanny];
+        }
+        await set(ref(database, `users/${id}`), data);
+        return data;
       }
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);

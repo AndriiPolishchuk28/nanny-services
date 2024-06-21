@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getListOfNannies } from './operations';
+import { addFavoriteNanny, getListOfNannies } from './operations';
 
 const initialState = {
   nannies: [],
@@ -38,6 +38,10 @@ const nannySlice = createSlice({
       .addCase(getListOfNannies.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.error = payload;
+      })
+      .addCase(addFavoriteNanny.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        console.log(payload);
       });
   },
 });

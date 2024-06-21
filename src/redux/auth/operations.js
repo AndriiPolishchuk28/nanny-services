@@ -7,6 +7,8 @@ import {
   signOut,
 } from 'firebase/auth';
 import { auth } from '../../components/api/firebase-config';
+import { database } from '../../components/api/firebase-config';
+import { ref, get, set } from 'firebase/database';
 
 export const signUp = createAsyncThunk(
   'nanny/register',
@@ -16,23 +18,25 @@ export const signUp = createAsyncThunk(
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         data.email,
-        data.password
+        data.password,
       );
       const user = userCredential.user;
       await updateProfile(user, {
         displayName: data.name,
       });
-      // await set(ref(database, 'users/' + user.uid), {
-      //   name: data.name,
-      //   email: data.email,
-      // });
+
+      await set(ref(database, 'users/' + user.uid), {
+        name: data.name,
+        email: data.email,
+        favorites: [],
+      });
       return {
         userName: user.displayName,
       };
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
     }
-  }
+  },
 );
 
 export const signIn = createAsyncThunk(
@@ -42,9 +46,10 @@ export const signIn = createAsyncThunk(
       const userCredential = await signInWithEmailAndPassword(
         auth,
         data.email,
-        data.password
+        data.password,
       );
       const user = userCredential.user;
+
       return {
         name: user.displayName,
         email: user.email,
@@ -53,7 +58,7 @@ export const signIn = createAsyncThunk(
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
     }
-  }
+  },
 );
 
 export const logOut = createAsyncThunk('nanny/logout', async (_, thunkApi) => {
@@ -75,13 +80,12 @@ export const currentUser = createAsyncThunk(
           (user) => {
             unsubscribe();
             if (user) {
-              console.log(user);
               resolve(user);
             } else {
               resolve(null);
             }
           },
-          reject
+          reject,
         );
       });
 
@@ -98,5 +102,5 @@ export const currentUser = createAsyncThunk(
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
     }
-  }
+  },
 );

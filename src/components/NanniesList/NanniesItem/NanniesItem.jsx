@@ -4,8 +4,10 @@ import { useState } from 'react';
 import { calculateAge } from '../../../helpers/index';
 import { nanoid } from 'nanoid';
 import NanniesReviews from './NanniesReviews/NanniesReviews';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../../redux/auth/selectors';
 
-const NanniesItem = ({ data }) => {
+const NanniesItem = ({ data, handleFavorite }) => {
   const {
     about,
     avatar_url,
@@ -21,6 +23,8 @@ const NanniesItem = ({ data }) => {
     reviews,
   } = data;
   const [readMore, setReadMore] = useState(false);
+  const user = useSelector(selectUser);
+
   const handleReadMore = () => {
     setReadMore(true);
   };
@@ -51,7 +55,12 @@ const NanniesItem = ({ data }) => {
               </p>
             </div>
             <div className={css.details_info}>
-              <svg width={26} height={26} className={css.svg_heart}>
+              <svg
+                onClick={() => handleFavorite(user.uid, data)}
+                width={26}
+                height={26}
+                className={css.svg_heart}
+              >
                 <use href={`${icons}#icon-heart`}></use>
               </svg>
             </div>

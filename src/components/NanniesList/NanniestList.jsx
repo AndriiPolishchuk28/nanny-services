@@ -1,7 +1,10 @@
 import NanniesItem from './NanniesItem/NanniesItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { getListOfNannies } from '../../redux/nannies/operations';
+import {
+  addFavoriteNanny,
+  getListOfNannies,
+} from '../../redux/nannies/operations';
 import {
   selectFilter,
   selectLastKey,
@@ -12,6 +15,7 @@ import css from './NanniesList.module.css';
 import { resetNannies } from '../../redux/nannies/nannySlice';
 import sort from '../../helpers/sortFunctions';
 import SelectComponents from '../SelectComponents/SelectComponents';
+import { selectUser } from '../../redux/auth/selectors';
 
 const NanniestList = () => {
   const dispatch = useDispatch();
@@ -19,6 +23,7 @@ const NanniestList = () => {
   const lastKey = useSelector(selectLastKey);
   const pageSize = useSelector(selectPage);
   const filter = useSelector(selectFilter);
+  const user = useSelector(selectUser);
   const [ab, setAb] = useState([]);
 
   useEffect(() => {
@@ -40,13 +45,23 @@ const NanniestList = () => {
     dispatch(getListOfNannies({ lastKey, pageSize }));
   };
 
+  const addFalorite = (id, nanny) => {
+    dispatch(addFavoriteNanny({ id, nanny }));
+  };
+
   return (
     <>
       <SelectComponents />
       <ul className={css.list}>
         {ab.length &&
           ab.map((nanny) => {
-            return <NanniesItem key={nanny.name} data={nanny} />;
+            return (
+              <NanniesItem
+                handleFavorite={addFalorite}
+                key={nanny.name}
+                data={nanny}
+              />
+            );
           })}
       </ul>
       <button
