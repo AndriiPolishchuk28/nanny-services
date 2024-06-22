@@ -2,12 +2,22 @@ import { NavLink } from 'react-router-dom';
 import css from './PrivateHeader.module.css';
 import { icons } from '../../assets';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectUserName } from '../../redux/auth/selectors';
+import { selectIsLoggedIn, selectUserName } from '../../redux/auth/selectors';
 import { logOut } from '../../redux/auth/operations';
+import { clearFavorites } from '../../redux/nannies/nannySlice';
+import FormModal from '../FormModal/FormModal';
+import { useState } from 'react';
 
 const PrivateHeader = () => {
   const userName = useSelector(selectUserName);
   const dispatch = useDispatch();
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const handlerLogOut = () => {
+    dispatch(logOut());
+    dispatch(clearFavorites());
+  };
   return (
     <header className={css.header}>
       <nav className={css.nav}>
@@ -58,9 +68,29 @@ const PrivateHeader = () => {
             </div>
           )}
 
-          <button onClick={() => dispatch(logOut())} className={css.btn_logout}>
-            Log out
-          </button>
+          {isLoggedIn ? (
+            <button
+              type="button"
+              onClick={handlerLogOut}
+              className={css.btn_logout}
+            >
+              Log out
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={() => setModalOpen(true)}
+              className={css.btn_logout}
+            >
+              Login
+            </button>
+          )}
+
+          <FormModal
+            type="Login"
+            isOpen={modalOpen}
+            isClose={() => setModalOpen(false)}
+          />
         </div>
       </nav>
     </header>

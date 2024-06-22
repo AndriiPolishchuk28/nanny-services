@@ -5,7 +5,7 @@ import { calculateAge } from '../../../helpers/index';
 import { nanoid } from 'nanoid';
 import NanniesReviews from './NanniesReviews/NanniesReviews';
 import { useSelector } from 'react-redux';
-import { selectIsLoggedIn, selectUser } from '../../../redux/auth/selectors';
+import { selectId, selectIsLoggedIn } from '../../../redux/auth/selectors';
 import { selectFavorites } from '../../../redux/nannies/selectors';
 
 const NanniesItem = ({ data, handleFavorite }) => {
@@ -26,7 +26,7 @@ const NanniesItem = ({ data, handleFavorite }) => {
   } = data;
   const [readMore, setReadMore] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
-  const user = useSelector(selectUser);
+  const userId = useSelector(selectId);
   const favoritesNannies = useSelector(selectFavorites);
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
@@ -69,7 +69,7 @@ const NanniesItem = ({ data, handleFavorite }) => {
             </div>
             <div className={css.details_info}>
               <svg
-                onClick={() => handleFavorite(user.uid, data)}
+                onClick={() => handleFavorite(userId, data)}
                 width={26}
                 height={26}
                 className={`${css.svg_heart} ${isFavorite ? css.favorite : ''}`}

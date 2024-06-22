@@ -7,6 +7,7 @@ import { selectUserName } from '../../redux/auth/selectors';
 import { logOut } from '../../redux/auth/operations';
 import { icons } from '../../assets';
 import BurgerMenu from './BurgerMenu/BurgerMenu';
+import { clearFavorites } from '../../redux/nannies/nannySlice';
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -49,6 +50,7 @@ const Header = () => {
     document.body.style.overflow = 'auto';
   };
   const logoutHandler = () => {
+    dispatch(clearFavorites());
     dispatch(logOut());
   };
   return (
@@ -90,11 +92,16 @@ const Header = () => {
             </li>
             <li>
               {userName ? (
-                <button onClick={logoutHandler} className={css.logout_btn}>
+                <button
+                  type="button"
+                  onClick={logoutHandler}
+                  className={css.logout_btn}
+                >
                   Logout
                 </button>
               ) : (
                 <button
+                  type="button"
                   onClick={openModal}
                   className={css.register_btn}
                   aria-controls="registrationModal"

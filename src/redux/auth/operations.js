@@ -9,6 +9,7 @@ import {
 import { auth } from '../../components/api/firebase-config';
 import { database } from '../../components/api/firebase-config';
 import { ref, get, set } from 'firebase/database';
+import { setFavorites } from '../nannies/nannySlice';
 
 export const signUp = createAsyncThunk(
   'nanny/register',
@@ -49,11 +50,19 @@ export const signIn = createAsyncThunk(
         data.password,
       );
       const user = userCredential.user;
+      const query = ref(database, `users/${user.uid}/favorites`);
+      const snapshot = await get(query);
+      let favorites = [];
+      if (snapshot.exists()) {
+        favorites = snapshot.val();
+      }
+      thunkApi.dispatch(setFavorites(favorites));
 
       return {
         name: user.displayName,
         email: user.email,
         id: user.uid,
+        favorites,
       };
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);

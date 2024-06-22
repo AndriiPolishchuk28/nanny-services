@@ -22,6 +22,12 @@ const nannySlice = createSlice({
     setFilter(state, { payload }) {
       state.filter = payload;
     },
+    clearFavorites(state) {
+      state.favorites = [];
+    },
+    setFavorites(state, { payload }) {
+      state.favorites = payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -46,5 +52,6 @@ const nannySlice = createSlice({
   },
 });
 
-export const { resetNannies, setFilter } = nannySlice.actions;
+export const { resetNannies, setFilter, clearFavorites, setFavorites } =
+  nannySlice.actions;
 export const nannyReducer = nannySlice.reducer;

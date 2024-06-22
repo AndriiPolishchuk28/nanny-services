@@ -67,6 +67,7 @@
   height: 26px;
   stroke: var(--primary-color-black);
   margin-left: 48px;
+  cursor: pointer;
 }
 
 .favorite {

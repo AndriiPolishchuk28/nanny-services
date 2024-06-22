@@ -56,7 +56,8 @@ export const addFavoriteNanny = createAsyncThunk(
 
       if (snapshot.exists()) {
         const data = snapshot.val()[id];
-        if (data.hasOwnProperty('favorites')) {
+        if (data.favorites) {
+          console.log(data.favorites);
           const exists = data.favorites.some((item) => item.key === nanny.key);
 
           if (exists) {

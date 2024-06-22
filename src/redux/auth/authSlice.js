@@ -6,8 +6,9 @@ const initialState = {
   isLoading: false,
   isLoggedIn: false,
   isRefreshing: false,
+  id: '',
   currentUser: {
-    id: '',
+    uid: '',
     name: '',
   },
 };
@@ -29,10 +30,12 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.currentUser = payload;
         state.isLoggedIn = true;
+        state.id = payload.id;
       })
       .addCase(logOut.fulfilled, (state) => {
         state.isLoading = false;
         state.isLoggedIn = false;
+        state.id = '';
         state.currentUser = {
           id: '',
           name: '',

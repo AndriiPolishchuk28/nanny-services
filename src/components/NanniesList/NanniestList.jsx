@@ -1,11 +1,13 @@
 import NanniesItem from './NanniesItem/NanniesItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import {
   addFavoriteNanny,
   getListOfNannies,
 } from '../../redux/nannies/operations';
 import {
+  selectFavorites,
   selectFilter,
   selectLastKey,
   selectNannies,
@@ -15,16 +17,19 @@ import css from './NanniesList.module.css';
 import { resetNannies } from '../../redux/nannies/nannySlice';
 import sort from '../../helpers/sortFunctions';
 import SelectComponents from '../SelectComponents/SelectComponents';
-import { selectUser } from '../../redux/auth/selectors';
+import { selectId } from '../../redux/auth/selectors';
+import { errorToast } from '../../helpers/toast';
 
 const NanniestList = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
   const nannies = useSelector(selectNannies);
   const lastKey = useSelector(selectLastKey);
   const pageSize = useSelector(selectPage);
   const filter = useSelector(selectFilter);
-  const user = useSelector(selectUser);
-  const [ab, setAb] = useState([]);
+  const userId = useSelector(selectId);
+  const favorites = useSelector(selectFavorites);
+  const [arrayNannies, setArrayNannies] = useState([]);
 
   useEffect(() => {
     dispatch(getListOfNannies({ lastKey: null, pageSize }));
@@ -38,7 +43,7 @@ const NanniestList = () => {
 
   useEffect(() => {
     const sortedArray = sort([...nannies], filter);
-    setAb(sortedArray);
+    setArrayNannies(sortedArray);
   }, [filter, nannies]);
 
   const loadMoreNannies = () => {
@@ -46,23 +51,35 @@ const NanniestList = () => {
   };
 
   const addFalorite = (id, nanny) => {
+    if (!userId) {
+      errorToast('You should login to use favorites');
+    }
     dispatch(addFavoriteNanny({ id, nanny }));
   };
-
   return (
     <>
       <SelectComponents />
       <ul className={css.list}>
-        {ab.length &&
-          ab.map((nanny) => {
-            return (
-              <NanniesItem
-                handleFavorite={addFalorite}
-                key={nanny.name}
-                data={nanny}
-              />
-            );
-          })}
+        {location.pathname === '/nannies'
+          ? arrayNannies.length &&
+            arrayNannies.map((nanny) => {
+              return (
+                <NanniesItem
+                  handleFavorite={addFalorite}
+                  key={nanny.name}
+                  data={nanny}
+                />
+              );
+            })
+          : favorites.map((nanny) => {
+              return (
+                <NanniesItem
+                  handleFavorite={addFalorite}
+                  key={nanny.name}
+                  data={nanny}
+                />
+              );
+            })}
       </ul>
       <button
         onClick={() => loadMoreNannies()}
