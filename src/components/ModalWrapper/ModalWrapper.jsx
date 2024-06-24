@@ -29,8 +29,6 @@ export const modalWrapper = (WrappedComponent) => {
         <Modal
           isOpen={props.isOpen}
           onRequestClose={props.isClose}
-          // className={css.modal}
-          // overlayClassName={css.overlay}
           style={customStyles}
         >
           {props.children}

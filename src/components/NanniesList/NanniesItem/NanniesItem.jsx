@@ -7,6 +7,7 @@ import NanniesReviews from './NanniesReviews/NanniesReviews';
 import { useSelector } from 'react-redux';
 import { selectId, selectIsLoggedIn } from '../../../redux/auth/selectors';
 import { selectFavorites } from '../../../redux/nannies/selectors';
+import Appointment from '../../Appointment/Appointment';
 
 const NanniesItem = ({ data, handleFavorite }) => {
   const {
@@ -26,6 +27,7 @@ const NanniesItem = ({ data, handleFavorite }) => {
   } = data;
   const [readMore, setReadMore] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
   const userId = useSelector(selectId);
   const favoritesNannies = useSelector(selectFavorites);
   const isLoggedIn = useSelector(selectIsLoggedIn);
@@ -122,12 +124,22 @@ const NanniesItem = ({ data, handleFavorite }) => {
                 reviewer={reviewer}
               />
             ))}
-            <button className={css.btn_appointment} type="button">
+            <button
+              onClick={() => setModalOpen(true)}
+              className={css.btn_appointment}
+              type="button"
+            >
               Make an appointment
             </button>
           </ul>
         )}
       </div>
+      <Appointment
+        name={name}
+        isOpen={modalOpen}
+        isClose={() => setModalOpen(false)}
+        avatar={avatar_url}
+      />
     </li>
   );
 };
