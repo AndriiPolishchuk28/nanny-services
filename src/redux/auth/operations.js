@@ -107,7 +107,6 @@ export const currentUser = createAsyncThunk(
           uid: user.uid,
         };
       } else {
-        errorToast('Please login');
         return null;
       }
     } catch (error) {
