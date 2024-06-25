@@ -61,15 +61,12 @@ const authSlice = createSlice({
         state.isRefreshing = true;
       })
       .addMatcher(
-        isAnyOf(signUp.pending, signIn.pending, logOut.pending, handlePending),
+        isAnyOf(signUp.pending, signIn.pending, logOut.pending),
+        handlePending,
       )
       .addMatcher(
-        isAnyOf(
-          signUp.rejected,
-          signIn.rejected,
-          logOut.rejected,
-          handleRejected,
-        ),
+        isAnyOf(signUp.rejected, signIn.rejected, logOut.rejected),
+        handleRejected,
       ),
 });
 
