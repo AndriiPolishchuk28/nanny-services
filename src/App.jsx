@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectIsRefreshing } from './redux/auth/selectors';
 import { useEffect } from 'react';
 import { currentUser } from './redux/auth/operations';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
 function App() {
   const dispatch = useDispatch();
@@ -24,10 +25,15 @@ function App() {
       </Route>
       <Route element={<PrivateLayout />}>
         <Route path="/nannies" element={<Nannies />} />
-        <Route path="/favorites" element={<Favorites />} />
+        <Route
+          path="/favorites"
+          element={
+            <PrivateRoute>
+              <Favorites />
+            </PrivateRoute>
+          }
+        />
       </Route>
-
-      {/* <Route path="*" element={<ErrorPage />} /> */}
     </Routes>
   );
 }

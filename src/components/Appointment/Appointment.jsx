@@ -4,7 +4,6 @@ import * as Yup from 'yup';
 import css from './Appointment.module.css';
 import { icons } from '../../assets';
 import clsx from 'clsx';
-import { useState } from 'react';
 import TimePicker from './TimePicker/TimePicker';
 
 const validationSchema = Yup.object().shape({

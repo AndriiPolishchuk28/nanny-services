@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import { addFavoriteNanny, getListOfNannies } from './operations';
 
 const initialState = {
@@ -9,6 +9,15 @@ const initialState = {
   isLoading: false,
   pageSize: 3,
   filter: '',
+};
+
+const handlePending = (state) => {
+  state.error = null;
+  state.isLoading = true;
+};
+
+const handleRejected = (state) => {
+  state.isLoading = false;
 };
 
 const nannySlice = createSlice({
@@ -31,9 +40,6 @@ const nannySlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getListOfNannies.pending, (state) => {
-        state.isLoading = true;
-      })
       .addCase(getListOfNannies.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         if (payload.length > 0) {
@@ -41,14 +47,24 @@ const nannySlice = createSlice({
           state.lastKey = payload[payload.length - 1].key;
         }
       })
-      .addCase(getListOfNannies.rejected, (state, { payload }) => {
-        state.isLoading = false;
-        state.error = payload;
-      })
       .addCase(addFavoriteNanny.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.favorites = payload;
-      });
+      })
+      .addMatcher(
+        isAnyOf(
+          getListOfNannies.pending,
+          addFavoriteNanny.pending,
+          handlePending,
+        ),
+      )
+      .addMatcher(
+        isAnyOf(
+          getListOfNannies.rejected,
+          addFavoriteNanny.rejected,
+          handleRejected,
+        ),
+      );
   },
 });
 
