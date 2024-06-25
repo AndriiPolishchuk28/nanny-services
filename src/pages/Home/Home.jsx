@@ -12,7 +12,7 @@ const Home = () => {
       <div className={css.wrap_overflow}>
         <Header />
         <div className={css.wrapper_bg}>
-          {width > 1440 && (
+          {width > 1439 && (
             <div className={css.bg_red}>
               <h1 className={css.title}>Make Life Easier for the Family:</h1>
               <p className={css.subtitle}>
@@ -28,7 +28,7 @@ const Home = () => {
             </div>
           )}
           <div className={css.bg_img}>
-            {width <= 1440 && (
+            {width <= 1439 && (
               <div>
                 <h1 className={css.title}>Make Life Easier for the Family:</h1>
                 <p className={css.subtitle}>
