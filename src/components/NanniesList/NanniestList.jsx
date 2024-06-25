@@ -11,6 +11,7 @@ import {
   selectFilter,
   selectLastKey,
   selectNannies,
+  selectNannyIsLoading,
   selectPage,
 } from '../../redux/nannies/selectors';
 import css from './NanniesList.module.css';
@@ -29,10 +30,16 @@ const NanniestList = () => {
   const filter = useSelector(selectFilter);
   const userId = useSelector(selectId);
   const favorites = useSelector(selectFavorites);
+  const loading = useSelector(selectNannyIsLoading);
   const [arrayNannies, setArrayNannies] = useState([]);
 
   useEffect(() => {
-    dispatch(getListOfNannies({ lastKey: null, pageSize }));
+    dispatch(
+      getListOfNannies({
+        lastKey: null,
+        pageSize,
+      }),
+    );
   }, [dispatch, pageSize]);
 
   useEffect(() => {
@@ -52,18 +59,24 @@ const NanniestList = () => {
     dispatch(getListOfNannies({ lastKey, pageSize }));
   };
 
+  const isNannies = arrayNannies.length > 0;
+
   const addFalorite = (id, nanny) => {
     if (!userId) {
       errorToast('You should login to use favorites');
+      return;
     }
     dispatch(addFavoriteNanny({ id, nanny }));
   };
+
   return (
     <>
       <SelectComponents />
-      <ul className={css.list}>
-        {location.pathname === '/nannies'
-          ? arrayNannies.length > 0 &&
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <ul className={css.list}>
+          {isNannies ? (
             arrayNannies.map((nanny) => {
               return (
                 <NanniesItem
@@ -73,23 +86,20 @@ const NanniestList = () => {
                 />
               );
             })
-          : arrayNannies.map((nanny) => {
-              return (
-                <NanniesItem
-                  handleFavorite={addFalorite}
-                  key={nanny.name}
-                  data={nanny}
-                />
-              );
-            })}
-      </ul>
-      <button
-        onClick={() => loadMoreNannies()}
-        className={css.loadmore_btn}
-        type="button"
-      >
-        Load more
-      </button>
+          ) : (
+            <p className={css.no_items}>No Items available</p>
+          )}
+        </ul>
+      )}
+      {location.pathname === '/nannies' && !loading && isNannies && (
+        <button
+          onClick={() => loadMoreNannies()}
+          className={css.loadmore_btn}
+          type="button"
+        >
+          Load more
+        </button>
+      )}
     </>
   );
 };

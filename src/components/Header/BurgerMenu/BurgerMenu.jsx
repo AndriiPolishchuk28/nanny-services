@@ -1,10 +1,12 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import css from './BurgerMenu.module.css';
 import { NavLink } from 'react-router-dom';
 import { selectIsLoggedIn } from '../../../redux/auth/selectors';
+import { logOut } from '../../../redux/auth/operations';
 
 const BurgerMenu = ({ isOpen, menuRef, openModal }) => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
+  const dispatch = useDispatch();
   return (
     <div ref={menuRef} className={`${css.wrap} ${isOpen ? css.active : ''}`}>
       <ul className={css.menu_wrapper}>
@@ -41,7 +43,7 @@ const BurgerMenu = ({ isOpen, menuRef, openModal }) => {
             </li>
           </>
         ) : (
-          <button onClick={openModal} className={css.btn}>
+          <button onClick={() => dispatch(logOut())} className={css.btn}>
             Logout
           </button>
         )}

@@ -10,6 +10,7 @@ import { auth } from '../../components/api/firebase-config';
 import { database } from '../../components/api/firebase-config';
 import { ref, get, set } from 'firebase/database';
 import { setFavorites } from '../nannies/nannySlice';
+import { successToast } from '../../helpers/toast';
 
 export const signUp = createAsyncThunk(
   'nanny/register',
@@ -31,6 +32,7 @@ export const signUp = createAsyncThunk(
         email: data.email,
         favorites: [],
       });
+      successToast('Registration is successful please log in');
       return {
         userName: user.displayName,
       };

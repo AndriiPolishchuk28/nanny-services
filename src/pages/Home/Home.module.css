@@ -13,7 +13,7 @@
   border-top-left-radius: 30px;
   padding-top: 251px;
   padding-left: 96px;
-  @media screen and (max-width: 1439px) {
+  @media screen and (max-width: 1440px) {
     width: 100%;
   }
 }
@@ -26,7 +26,7 @@
   border-bottom-right-radius: 30px;
   border-top-right-radius: 30px;
   position: relative;
-  @media screen and (max-width: 1439px) {
+  @media screen and (max-width: 1440px) {
     width: 100%;
     background-size: cover;
     display: flex;
@@ -46,6 +46,11 @@
   color: var(--primary-color-white);
   max-width: 517px;
   margin-bottom: 28px;
+  @media screen and (max-width: 768px) {
+    font-size: 40px;
+    max-width: 80%;
+    padding: 0 16px;
+  }
 }
 
 .subtitle {
@@ -54,6 +59,10 @@
   line-height: 1.07;
   letter-spacing: -0.02em;
   color: var(--primary-color-white);
+  @media screen and (max-width: 768px) {
+    font-size: 20px;
+    padding: 0 16px;
+  }
 }
 
 .get_started {
@@ -71,11 +80,13 @@
   letter-spacing: -0.01em;
   color: var(--primary-color-white);
   margin-top: 64px;
+  @media screen and (max-width: 768px) {
+    margin-left: 16px;
+  }
 }
 
 .get_started:hover .arrow {
   rotate: 53deg;
-  /* transition: rotate 250ms ease-in-out; */
 }
 
 .arrow {
@@ -95,6 +106,9 @@
   align-items: center;
   justify-content: center;
   gap: 16px;
+  @media screen and (max-width: 768px) {
+    left: 16px;
+  }
 }
 
 .svg_wrapper {

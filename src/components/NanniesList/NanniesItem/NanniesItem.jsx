@@ -43,6 +43,16 @@ const NanniesItem = ({ data, handleFavorite }) => {
   const handleReadMore = () => {
     setReadMore(true);
   };
+
+  const openModal = () => {
+    setModalOpen(true);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+    document.body.style.overflow = 'auto';
+  };
   return (
     <li className={css.item_wrapper}>
       <div className={css.img_wrapper}>
@@ -125,7 +135,7 @@ const NanniesItem = ({ data, handleFavorite }) => {
               />
             ))}
             <button
-              onClick={() => setModalOpen(true)}
+              onClick={openModal}
               className={css.btn_appointment}
               type="button"
             >
@@ -137,7 +147,7 @@ const NanniesItem = ({ data, handleFavorite }) => {
       <Appointment
         name={name}
         isOpen={modalOpen}
-        isClose={() => setModalOpen(false)}
+        isClose={closeModal}
         avatar={avatar_url}
       />
     </li>

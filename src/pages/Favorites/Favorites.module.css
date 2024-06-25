@@ -1,4 +1,11 @@
 .container {
   background-color: var(--primary-color-grey-bg);
   padding: 64px 128px 100px 128px;
+  height: 100%;
+  @media screen and (max-width: 1439px) {
+    padding: 64px;
+  }
+  @media screen and (max-width: 768px) {
+    padding: 32px;
+  }
 }

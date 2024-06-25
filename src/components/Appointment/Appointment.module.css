@@ -4,6 +4,10 @@
   max-height: 97vh;
   overflow-y: auto;
   background-color: var(--primary-color-grey-bg);
+  @media screen and (max-width: 768px) {
+    padding: 16px;
+    width: 90vw;
+  }
 }
 
 .btn_close {
@@ -23,6 +27,10 @@
   letter-spacing: -0.02em;
   color: var(--primary-color-black);
   margin-bottom: 20px;
+  @media screen and (max-width: 768px) {
+    font-size: 24px;
+    max-width: 80%;
+  }
 }
 
 .subtitle_text {
@@ -60,6 +68,9 @@
   flex-wrap: wrap;
   gap: 16px 8px;
   justify-content: space-between;
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
 }
 
 .input {
@@ -70,6 +81,9 @@
   padding-left: 18px;
   color: var(--primary-color-black);
   background-color: var(--primary-color-grey-bg);
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
 }
 
 .input::placeholder {

@@ -12,7 +12,7 @@ const Home = () => {
       <div className={css.wrap_overflow}>
         <Header />
         <div className={css.wrapper_bg}>
-          {width > 1439 && (
+          {width > 1440 && (
             <div className={css.bg_red}>
               <h1 className={css.title}>Make Life Easier for the Family:</h1>
               <p className={css.subtitle}>

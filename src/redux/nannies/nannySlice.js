@@ -52,18 +52,12 @@ const nannySlice = createSlice({
         state.favorites = payload;
       })
       .addMatcher(
-        isAnyOf(
-          getListOfNannies.pending,
-          addFavoriteNanny.pending,
-          handlePending,
-        ),
+        isAnyOf(getListOfNannies.pending, addFavoriteNanny.pending),
+        handlePending,
       )
       .addMatcher(
-        isAnyOf(
-          getListOfNannies.rejected,
-          addFavoriteNanny.rejected,
-          handleRejected,
-        ),
+        isAnyOf(getListOfNannies.rejected, addFavoriteNanny.rejected),
+        handleRejected,
       );
   },
 });

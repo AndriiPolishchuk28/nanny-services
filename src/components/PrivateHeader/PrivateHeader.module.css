@@ -1,12 +1,18 @@
 .header {
   padding: 24px 128px;
   background-color: var(--primary-color-red);
+  @media screen and (max-width: 768px) {
+    padding: 24px 16px;
+  }
 }
 
 .nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  @media screen and (max-width: 768px) {
+    justify-content: space-around;
+  }
 }
 
 .link_nanny {
