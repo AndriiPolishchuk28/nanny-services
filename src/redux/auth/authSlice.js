@@ -55,6 +55,7 @@ const authSlice = createSlice({
         state.isRefreshing = false;
         state.isLoggedIn = payload ? true : false;
         state.currentUser = payload;
+        state.id = payload?.uid;
       })
       .addCase(currentUser.pending, (state) => {
         state.isRefreshing = true;

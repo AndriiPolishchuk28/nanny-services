@@ -82,13 +82,17 @@ const Header = () => {
               </NavLink>
             </li>
             <li className={css.login_li}>
-              <button
-                onClick={openModal}
-                className={css.login_btn}
-                aria-controls="loginModal"
-              >
-                {userName ? userName : 'Login'}
-              </button>
+              {userName ? (
+                <p className={css.user_name}>{userName}</p>
+              ) : (
+                <button
+                  onClick={openModal}
+                  className={css.login_btn}
+                  aria-controls="loginModal"
+                >
+                  Login
+                </button>
+              )}
             </li>
             <li>
               {userName ? (

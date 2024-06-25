@@ -42,9 +42,11 @@ const NanniestList = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    const sortedArray = sort([...nannies], filter);
+    const nanny =
+      location.pathname === '/nannies' ? [...nannies] : [...favorites];
+    const sortedArray = sort(nanny, filter);
     setArrayNannies(sortedArray);
-  }, [filter, nannies]);
+  }, [filter, nannies, favorites, location.pathname]);
 
   const loadMoreNannies = () => {
     dispatch(getListOfNannies({ lastKey, pageSize }));
@@ -61,7 +63,7 @@ const NanniestList = () => {
       <SelectComponents />
       <ul className={css.list}>
         {location.pathname === '/nannies'
-          ? arrayNannies.length &&
+          ? arrayNannies.length > 0 &&
             arrayNannies.map((nanny) => {
               return (
                 <NanniesItem
@@ -71,7 +73,7 @@ const NanniestList = () => {
                 />
               );
             })
-          : favorites.map((nanny) => {
+          : arrayNannies.map((nanny) => {
               return (
                 <NanniesItem
                   handleFavorite={addFalorite}

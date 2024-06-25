@@ -6,13 +6,51 @@ import { selectIsLoggedIn, selectUserName } from '../../redux/auth/selectors';
 import { logOut } from '../../redux/auth/operations';
 import { clearFavorites } from '../../redux/nannies/nannySlice';
 import FormModal from '../FormModal/FormModal';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import BurgerMenu from '../Header/BurgerMenu/BurgerMenu';
 
 const PrivateHeader = () => {
   const userName = useSelector(selectUserName);
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const [modalOpen, setModalOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const menuRef = useRef(null);
+  const [typeBtn, setTypeBtn] = useState(null);
+
+  const handleBurgerMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleCloseMenu = (e) => {
+    const { current } = menuRef;
+    if ((current && !current.contains(e.target)) || e.target.matches('a')) {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      document.addEventListener('mousedown', handleCloseMenu);
+    } else {
+      document.removeEventListener('mousedown', handleCloseMenu);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleCloseMenu);
+    };
+  }, [isOpen]);
+
+  const openModal = (event) => {
+    setTypeBtn(event.target.innerText);
+    setModalOpen(true);
+    setIsOpen(false);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+    document.body.style.overflow = 'auto';
+  };
 
   const handlerLogOut = () => {
     dispatch(logOut());
@@ -21,6 +59,15 @@ const PrivateHeader = () => {
   return (
     <header className={css.header}>
       <nav className={css.nav}>
+        <svg
+          onClick={handleBurgerMenu}
+          width={24}
+          height={24}
+          className={css.svg_burger}
+        >
+          <use href={`${icons}#icon-burger`}></use>
+        </svg>
+        <BurgerMenu menuRef={menuRef} openModal={openModal} isOpen={isOpen} />
         <NavLink className={css.link_nanny} to="/">
           Nanny.Services
         </NavLink>
@@ -79,18 +126,14 @@ const PrivateHeader = () => {
           ) : (
             <button
               type="button"
-              onClick={() => setModalOpen(true)}
+              onClick={openModal}
               className={css.btn_logout}
             >
               Login
             </button>
           )}
 
-          <FormModal
-            type="Login"
-            isOpen={modalOpen}
-            isClose={() => setModalOpen(false)}
-          />
+          <FormModal type={typeBtn} isOpen={modalOpen} isClose={closeModal} />
         </div>
       </nav>
     </header>

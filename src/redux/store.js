@@ -19,10 +19,16 @@ const nannyConfig = {
   whitelist: ['favorites'],
 };
 
+const authConfig = {
+  key: 'auth',
+  storage,
+  whitelist: ['id'],
+};
+
 export const store = configureStore({
   reducer: {
     nanny: persistReducer(nannyConfig, nannyReducer),
-    auth: authReducer,
+    auth: persistReducer(authConfig, authReducer),
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

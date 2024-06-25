@@ -16,11 +16,17 @@
   line-height: 1.16;
   letter-spacing: -0.02em;
   color: var(--primary-color-white);
+  @media screen and (max-width: 1439px) {
+    order: 1;
+  }
 }
 
 .menu_wrapper {
   display: flex;
   gap: 40px;
+  @media screen and (max-width: 1439px) {
+    display: none;
+  }
 }
 
 .link {
@@ -44,6 +50,9 @@
 .btn_wrapper {
   display: flex;
   gap: 24px;
+  @media screen and (max-width: 1439px) {
+    display: none;
+  }
 }
 
 .user_info_wrapper {
@@ -83,4 +92,14 @@
   line-height: 1.25;
   letter-spacing: -0.01em;
   color: var(--primary-color-white);
+}
+
+.svg_burger {
+  order: 2;
+  display: none;
+  @media screen and (max-width: 1439px) {
+    display: block;
+    order: 2;
+    stroke: var(--primary-color-white);
+  }
 }
