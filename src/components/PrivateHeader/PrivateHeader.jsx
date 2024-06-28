@@ -24,7 +24,7 @@ const PrivateHeader = () => {
 
   const handleCloseMenu = (e) => {
     const { current } = menuRef;
-    if ((current && !current.contains(e.target)) || e.target.matches('a')) {
+    if (current && !current.contains(e.target)) {
       setIsOpen(false);
     }
   };
@@ -67,7 +67,12 @@ const PrivateHeader = () => {
         >
           <use href={`${icons}#icon-burger`}></use>
         </svg>
-        <BurgerMenu menuRef={menuRef} openModal={openModal} isOpen={isOpen} />
+        <BurgerMenu
+          menuRef={menuRef}
+          openModal={openModal}
+          isOpen={isOpen}
+          closeMenu={handleBurgerMenu}
+        />
         <NavLink className={css.link_nanny} to="/">
           Nanny.Services
         </NavLink>
@@ -89,19 +94,21 @@ const PrivateHeader = () => {
               }
               to="/nannies"
             >
-              Nannies
+              Nannies1
             </NavLink>
           </li>
-          <li className={css.li_item}>
-            <NavLink
-              className={({ isActive }) =>
-                `${css.link} ${isActive ? css.activeLink : ''}`
-              }
-              to="/favorites"
-            >
-              Favorites
-            </NavLink>
-          </li>
+          {isLoggedIn && (
+            <li className={css.li_item}>
+              <NavLink
+                className={({ isActive }) =>
+                  `${css.link} ${isActive ? css.activeLink : ''}`
+                }
+                to="/favorites"
+              >
+                Favorites
+              </NavLink>
+            </li>
+          )}
         </ul>
         <div className={css.btn_wrapper}>
           {userName && (
@@ -124,16 +131,30 @@ const PrivateHeader = () => {
               Log out
             </button>
           ) : (
-            <button
-              type="button"
-              onClick={openModal}
-              className={css.btn_logout}
-            >
-              Login
-            </button>
+            <>
+              <button
+                type="button"
+                onClick={openModal}
+                className={css.btn_logout}
+              >
+                Login
+              </button>
+              <button
+                type="button"
+                onClick={openModal}
+                className={css.btn_logout}
+              >
+                Registration
+              </button>
+            </>
           )}
 
-          <FormModal type={typeBtn} isOpen={modalOpen} isClose={closeModal} />
+          <FormModal
+            type={typeBtn}
+            isOpen={modalOpen}
+            isClose={closeModal}
+            closeMenu={handleBurgerMenu}
+          />
         </div>
       </nav>
     </header>

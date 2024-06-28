@@ -4,25 +4,29 @@ import { NavLink } from 'react-router-dom';
 import { selectIsLoggedIn } from '../../../redux/auth/selectors';
 import { logOut } from '../../../redux/auth/operations';
 
-const BurgerMenu = ({ isOpen, menuRef, openModal }) => {
+const BurgerMenu = ({ isOpen, menuRef, openModal, closeMenu }) => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const dispatch = useDispatch();
   return (
     <div ref={menuRef} className={`${css.wrap} ${isOpen ? css.active : ''}`}>
       <ul className={css.menu_wrapper}>
         <li className={css.li_home}>
-          <NavLink className={css.link_item} to="/">
+          <NavLink className={css.link_item} to="/" onClick={closeMenu}>
             Home
           </NavLink>
         </li>
         <li>
-          <NavLink className={css.link_item} to="/nannies">
+          <NavLink className={css.link_item} to="/nannies" onClick={closeMenu}>
             Nannies
           </NavLink>
         </li>
         {isLoggedIn && (
           <li>
-            <NavLink className={css.link_item} to="/favorites">
+            <NavLink
+              className={css.link_item}
+              to="/favorites"
+              onClick={closeMenu}
+            >
               Favorites
             </NavLink>
           </li>
@@ -43,7 +47,13 @@ const BurgerMenu = ({ isOpen, menuRef, openModal }) => {
             </li>
           </>
         ) : (
-          <button onClick={() => dispatch(logOut())} className={css.btn}>
+          <button
+            onClick={() => {
+              dispatch(logOut());
+              closeMenu();
+            }}
+            className={css.btn}
+          >
             Logout
           </button>
         )}

@@ -23,7 +23,7 @@ const Header = () => {
 
   const handleCloseMenu = (e) => {
     const { current } = menuRef;
-    if ((current && !current.contains(e.target)) || e.target.matches('a')) {
+    if (current && !current.contains(e.target)) {
       setIsOpen(false);
     }
   };
@@ -69,7 +69,12 @@ const Header = () => {
           >
             <use href={`${icons}#icon-burger`}></use>
           </svg>
-          <BurgerMenu menuRef={menuRef} openModal={openModal} isOpen={isOpen} />
+          <BurgerMenu
+            menuRef={menuRef}
+            openModal={openModal}
+            isOpen={isOpen}
+            closeMenu={handleBurgerMenu}
+          />
           <ul className={css.nav_menu}>
             <li className={css.li_home}>
               <NavLink className={css.link_item} to="/">

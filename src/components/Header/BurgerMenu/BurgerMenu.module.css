@@ -8,6 +8,7 @@
   padding: 0 10px;
   opacity: 0;
   border-bottom-left-radius: 30px;
+  border-top-left-radius: 30px;
   transform: translateX(100%);
   transition: transform 0.4s ease;
   z-index: 2;
@@ -24,16 +25,22 @@
 .menu_wrapper {
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  padding-top: 16px;
+  gap: 20px;
+  padding-top: 20%;
   border-bottom: 1px solid var(--primary-color-black);
   padding-bottom: 20px;
+  align-items: center;
 }
 
 .link_item {
   font-weight: 500;
   font-size: 20px;
   color: var(--primary-color-black);
+  transition: color 300ms ease;
+}
+
+.link_item:hover {
+  color: var(--primary-color-red);
 }
 
 .btn_wrapper {
@@ -51,4 +58,14 @@
   line-height: 1.25;
   letter-spacing: -0.01em;
   color: var(--primary-color-black);
+  width: 100%;
+  height: 50px;
+  border-radius: 30px;
+  border: 1px solid var(--primary-color-red);
+  transition: background-color 300ms ease;
+}
+
+.btn:hover {
+  background-color: var(--primary-color-red);
+  color: var(--primary-color-white);
 }

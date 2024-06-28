@@ -6,11 +6,11 @@ import {
   onAuthStateChanged,
   signOut,
 } from 'firebase/auth';
-import { auth } from '../../components/api/firebase-config';
-import { database } from '../../components/api/firebase-config';
+import { auth } from '../../api/firebase-config';
+import { database } from '../../api/firebase-config';
 import { ref, get, set } from 'firebase/database';
 import { setFavorites } from '../nannies/nannySlice';
-import { errorToast, successToast } from '../../helpers/toast';
+import { successToast } from '../../helpers/toast';
 
 export const signUp = createAsyncThunk(
   'nanny/register',
@@ -31,10 +31,13 @@ export const signUp = createAsyncThunk(
         name: data.name,
         email: data.email,
         favorites: [],
+        id: user.uid,
       });
-      successToast('Registration is successful please log in');
+      successToast('Registration is successful');
       return {
         userName: user.displayName,
+        id: user.uid,
+        name: data.name,
       };
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);

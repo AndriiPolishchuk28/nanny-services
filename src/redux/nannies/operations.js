@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { database } from '../../components/api/firebase-config';
+import { database } from '../../api/firebase-config';
 import {
   ref,
   get,
@@ -57,7 +57,6 @@ export const addFavoriteNanny = createAsyncThunk(
       if (snapshot.exists()) {
         const data = snapshot.val()[id];
         if (data.favorites) {
-          console.log(data.favorites);
           const exists = data.favorites.some((item) => item.key === nanny.key);
 
           if (exists) {

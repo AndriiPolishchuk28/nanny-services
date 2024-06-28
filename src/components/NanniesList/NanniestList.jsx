@@ -1,6 +1,6 @@
 import NanniesItem from './NanniesItem/NanniesItem';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import {
   addFavoriteNanny,
@@ -61,36 +61,35 @@ const NanniestList = () => {
 
   const isNannies = arrayNannies.length > 0;
 
-  const addFalorite = (id, nanny) => {
-    if (!userId) {
-      errorToast('You should login to use favorites');
-      return;
-    }
-    dispatch(addFavoriteNanny({ id, nanny }));
-  };
+  const addFavorite = useCallback(
+    (id, nanny) => {
+      if (!userId) {
+        errorToast('You should login to use favorites');
+        return;
+      }
+      dispatch(addFavoriteNanny({ id, nanny }));
+    },
+    [userId, dispatch],
+  );
 
   return (
     <>
       <SelectComponents />
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <ul className={css.list}>
-          {isNannies ? (
-            arrayNannies.map((nanny) => {
-              return (
-                <NanniesItem
-                  handleFavorite={addFalorite}
-                  key={nanny.name}
-                  data={nanny}
-                />
-              );
-            })
-          ) : (
-            <p className={css.no_items}>No Items available</p>
-          )}
-        </ul>
-      )}
+      <ul className={css.list}>
+        {isNannies ? (
+          arrayNannies.map((nanny) => {
+            return (
+              <NanniesItem
+                handleFavorite={addFavorite}
+                key={nanny.name}
+                data={nanny}
+              />
+            );
+          })
+        ) : (
+          <p className={css.no_items}>No Items available</p>
+        )}
+      </ul>
       {location.pathname === '/nannies' && !loading && isNannies && (
         <button
           onClick={() => loadMoreNannies()}
