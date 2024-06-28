@@ -94,7 +94,7 @@ const PrivateHeader = () => {
               }
               to="/nannies"
             >
-              Nannies1
+              Nannies
             </NavLink>
           </li>
           {isLoggedIn && (
